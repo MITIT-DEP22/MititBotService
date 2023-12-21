@@ -1,0 +1,6 @@
+[submodule "ConstructorTgBotBackend"]
+	path = ConstructorTgBotBackend
+	url = git@github.com:MITIT-DEP22/ConstructorTgBotBackend.git
+[submodule "MititTgBot"]
+	path = MititTgBot
+	url = git@github.com:MITIT-DEP22/MititTgBot.git
