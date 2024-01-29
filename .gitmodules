@@ -4,3 +4,6 @@
 [submodule "MititTgBot"]
 	path = MititTgBot
 	url = git@github.com:MITIT-DEP22/MititTgBot.git
+[submodule "ConstructorTgBotFront"]
+	path = ConstructorTgBotFront
+	url = git@github.com:MITIT-DEP22/ConstructorTgBotFront.git
