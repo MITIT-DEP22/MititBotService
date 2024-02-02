@@ -7,6 +7,7 @@ services:
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
     volumes:
+<<<<<<< HEAD
       - backend:/app
     environment:
       PORT: ${BACKEND_PORT}
@@ -42,3 +43,6 @@ services:
 
 volumes:
   backend:
+=======
+      - .:/app
+>>>>>>> 961da8efe497e00e5950f394acf6a201d84674d0
