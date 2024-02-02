@@ -1,11 +1,44 @@
 version: '3'
 
 services:
-  app:
+  backend:
+    container_name: tg_bot_backend
     build: ./ConstructorTgBotBackend
     ports:
-      - "3000:3000"
-    working_dir: /app
-    command: npm start
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     volumes:
-      - .:/app
+      - backend:/app
+    environment:
+      PORT: ${BACKEND_PORT}
+      SFTP_PORT: ${SFTP_PORT}
+      SFTP_HOST: ${SFTP_HOST}
+      SFTP_USERNAME: ${SFTP_USERNAME}
+      SFTP_PASSWORD: ${SFTP_PASSWORD}
+      SFTP_REMOTE_URL: ${SFTP_REMOTE_URL}
+    restart: always
+
+  front:
+    container_name: tg_bot_front
+    build: ./ConstructorTgBotFront
+    ports:
+      - "${FRONTEND_PORT}:80"
+    expose:
+      - "${FRONTEND_PORT}"
+    environment:
+      REACT_APP_API_CONSTRUCTOR: ${SERVER_ADDRESS}
+    restart: always
+    
+  tg:
+    container_name: tg_bot
+    build: ./MititTgBot
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      API_KEY: ${API_KEY}
+      CONSTRUCTOR_SERVER: ${SERVER_ADDRESS}
+
+volumes:
+  backend:
