@@ -6,39 +6,39 @@ services:
     build: ./ConstructorTgBotBackend
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
-    volumes:
-      - backend:/app
     environment:
       PORT: ${BACKEND_PORT}
       SFTP_PORT: ${SFTP_PORT}
       SFTP_HOST: ${SFTP_HOST}
       SFTP_USERNAME: ${SFTP_USERNAME}
       SFTP_PASSWORD: ${SFTP_PASSWORD}
-      SFTP_REMOTE_URL: ${SFTP_REMOTE_URL}
+      SFTP_URL_REMOTE: ${SFTP_URL_REMOTE}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USERNAME: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      DATABASE_DIALECT: ${DATABASE_DIALECT}
     restart: always
 
   front:
     container_name: tg_bot_front
-    build: ./ConstructorTgBotFront
+    build:
+      context: ./ConstructorTgBotFront
+      args:
+        REACT_APP_API_CONSTRUCTOR: ${REACT_APP_API_CONSTRUCTOR}
     ports:
       - "${FRONTEND_PORT}:80"
     expose:
       - "${FRONTEND_PORT}"
     environment:
-      REACT_APP_API_CONSTRUCTOR: ${SERVER_ADDRESS}
+      REACT_APP_API_CONSTRUCTOR: ${REACT_APP_API_CONSTRUCTOR}
     restart: always
     
   tg:
     container_name: tg_bot
     build: ./MititTgBot
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_HOST: ${MYSQL_HOST}
-      MYSQL_PORT: ${MYSQL_PORT}
       API_KEY: ${API_KEY}
       CONSTRUCTOR_SERVER: ${SERVER_ADDRESS}
-
-volumes:
-  backend:
+    restart: always
