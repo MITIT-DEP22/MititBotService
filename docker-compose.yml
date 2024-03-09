@@ -26,6 +26,7 @@ services:
       - "${FRONTEND_PORT}"
     environment:
       REACT_APP_API_CONSTRUCTOR: ${SERVER_ADDRESS}
+      REACT_APP_VERSION: ${APP_VERSION}
     restart: always
     
   tg:
